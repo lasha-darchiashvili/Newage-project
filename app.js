@@ -65,6 +65,10 @@ app.get("/contacts/:id", (req, res) => {
       return res.status(500).json({ error: err.sqlMessage });
     }
 
+    if (result.length === 0) {
+      return res.status(404).json({ error: "ID not found" });
+    }
+
     res.status(200).json({
       status: "success",
       data: {
@@ -120,6 +124,26 @@ app.put("/contacts/:id", (req, res) => {
         email: email,
         phone: phone,
       },
+    });
+  });
+});
+
+app.delete("/contacts/:id", (req, res) => {
+  const { id } = req.params;
+
+  const query = "DELETE FROM contacts WHERE id = ?";
+  db.query(query, [id], (err, result) => {
+    if (err) {
+      console.error("Error");
+      return res.status(500).json({ error: err.sqlMessage });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "ID not found" });
+    }
+
+    res.json({
+      status: "success",
     });
   });
 });
