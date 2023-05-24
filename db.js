@@ -1,5 +1,6 @@
 const mysql = require("mysql2");
 require("dotenv").config();
+const contactsData = require("./contactsData");
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -28,10 +29,31 @@ const sql = `CREATE TABLE IF NOT EXISTS contacts (
   phone VARCHAR(20) NOT NULL
   )`;
 
-// creating table
+// creating tables
 db.query(sql, (err, result) => {
   if (err) throw err;
-  console.log(result);
+
+  //check if data already exists
+  const checkQuery = "SELECT COUNT(*) AS count FROM contacts";
+  db.query(checkQuery, (err, result) => {
+    if (err) throw err;
+
+    if (result[0].count === 0) {
+      //seed data
+      const insertQuery =
+        "INSERT INTO contacts (name, email, phone) VALUES (?, ?, ?)";
+      contactsData.forEach((contact) => {
+        db.query(
+          insertQuery,
+          [contact.name, contact.email, contact.phone],
+          (err, result) => {
+            if (err) throw err;
+            console.log(`Inserted contact with ID: ${result.insertId}`);
+          }
+        );
+      });
+    }
+  });
 });
 
 db.connect((err) => {
