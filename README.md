@@ -49,13 +49,13 @@ Instal packages
 - npm install
 ```
 
-Create .enc file, paste this code and change YOUR_USERNAME and YOUR_PASSWORD to your credintials
+Create .env file, paste this code there and change YOUR_USERNAME and YOUR_PASSWORD to your credintials
 
 ```sh
-- DB_HOST=localhost
-- DB_USER=YOUR_USERNAME
-- DB_PASSWORD=YOUR_PASSWORD
-- DB_NAME=contact_management
+DB_HOST=localhost
+DB_USER=YOUR_USERNAME
+DB_PASSWORD=YOUR_PASSWORD
+DB_NAME=contact_management
 ```
 
 Run following command:
@@ -73,9 +73,6 @@ The API documentation is generated using Swagger. To view the documentation and 
 1. Ensure that the server is running by executing the `npm start` command.
 2. Open your web browser and navigate to the following URL: `http://localhost:3000/api-docs`
 3. The Swagger UI interface will be displayed, showing the available endpoints, request/response details, and allowing you to make test requests directly from the documentation page.
-
-
-
 
 #
 

@@ -145,7 +145,7 @@ function validateContact(name, email, phone) {
     return { error: "Phone number not valid" };
   }
 
-  if (name.length < 5) {
+  if (name.length < 2) {
     return { error: "Name not valid" };
   }
 
